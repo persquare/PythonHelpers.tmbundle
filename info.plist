@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>contactEmailRot13</key>
+	<string></string>
+	<key>contactName</key>
+	<string>Per Persson</string>
+	<key>description</key>
+	<string>Better support for writing tmBundles using Python3
+Required by other bundles, so don't remove</string>
+	<key>name</key>
+	<string>Python Helpers</string>
+	<key>uuid</key>
+	<string>35499A98-BE20-439E-B3FA-714F56392768</string>
+</dict>
+</plist>

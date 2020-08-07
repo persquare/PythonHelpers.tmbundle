@@ -162,11 +162,17 @@ def generate_keyboard_shortcut_docs(cmd_dir):
         tb.add_row(combo_str, cmd_name, docstring)
     return tb.render()
 
-def help_for_bundle():
+def help_for_bundle(intro_text='', body_text=''):
     cmd_dir = os.path.join(os.environ['TM_BUNDLE_SUPPORT'], '../Commands')
-    helptext = generate_keyboard_shortcut_docs(cmd_dir)
-    return helptext
+    shortcuts = f"# Quickstart (Keyboard shortcuts)\n<div id=shortcuts>{generate_keyboard_shortcut_docs(cmd_dir)}</div>"
+    text = "\n".join([intro_text, shortcuts, body_text])
 
+    # Let markdown_to_html.rb do the heavy lifting
+    md2help = os.path.join(os.environ['TM_SUPPORT_PATH'], 'lib/markdown_to_help.rb')
+    p = Popen(md2help, stdin=PIPE, stdout=PIPE, stderr=PIPE)
+    helptext, err = p.communicate(input=text.encode('utf-8'))
+
+    return helptext.decode('utf-8')
 
 
 

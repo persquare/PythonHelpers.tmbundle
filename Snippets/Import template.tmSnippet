@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>try:
+    envvars = ['TM_PYTHON_HELPERS_BUNDLE_SUPPORT', 'TM_BUNDLE_SUPPORT']
+    sys.path[:0] = [os.path.join(os.environ[v], 'lib') for v in envvars]
+except:
+    errmsg = """
+    The PythonHelpers bundle required, see&lt;br/&gt;
+    &lt;a href=https://github.com/persquare/PythonHelpers.tmbundle&gt;
+    github.com/persquare/PythonHelpers.tmbundle
+    &lt;/a&gt;
+    """
+    sys.stderr.write(errmsg)
+    sys.exit(205)
+    
+${1:import TextMate as tm}
+$0</string>
+	<key>name</key>
+	<string>Import template</string>
+	<key>scope</key>
+	<string>attr.bundle-editor</string>
+	<key>tabTrigger</key>
+	<string>itm</string>
+	<key>uuid</key>
+	<string>7F12CECD-B5E5-40C9-B594-D99AF54F0BF9</string>
+</dict>
+</plist>

@@ -30,18 +30,33 @@ def register_images(imgdir):
         _call_dialog('images', '--register', plistlib.dumps({name:img}))
     return imgnames
 
-def present_popup(suggestions, typed='', extra_word_chars='_', return_choice=False):
+def present_popup(suggestions, typed='', extra_word_chars='_'):
+    """
+    suggestions is a list of dicts with display, image, and insert keys, the latter two are optional.
+    insert text will be appended **after** completion.
+    """
     retval = _call_dialog('popup',
                           '--suggestions', plistlib.dumps(suggestions),
                           '--alreadyTyped', typed,
-                          '--additionalWordCharacters', extra_word_chars,
-                          '--returnChoice' if return_choice else '')
-    return plistlib.loads(retval) if retval else {}
+                          '--additionalWordCharacters', extra_word_chars)
+
+def completion_popup(completions, typed='', extra_word_chars='_'):
+    """completions is a list of strings"""
+    entries = [{'display':s} for s in completions]
+    retval = _call_dialog('popup',
+                          '--suggestions', plistlib.dumps(entries),
+                          '--alreadyTyped', typed,
+                          '--additionalWordCharacters', extra_word_chars)
 
 def present_menu(menu_items):
     selections = [{'title':item} for item in menu_items]
-    retval = _call_dialog('menu', '--items', plistlib.dumps(selections))
-    return plistlib.loads(retval) if retval else {}
+    result = _call_dialog('menu', '--items', plistlib.dumps(selections))
+    if not result:
+        return None
+    result = plistlib.loads(result)
+    item = result.get('title')
+    idx = menu_items.index(item)
+    return idx
 
 def present_tooltip(text, is_html=False):
     _call_dialog('tooltip', '--html' if is_html else '--text', text)

@@ -10,7 +10,7 @@ class Executor(object):
 
     async def _read(self, stream, filter):
         async for line in stream:
-            line = filter(html.escape(line.decode().rstrip()))
+            line = filter(line.decode().rstrip())
             print(line)
             sys.stdout.flush()
 
@@ -50,10 +50,10 @@ class Executor(object):
         return self.status
 
     def format_stdout(self, line):
-        return line
+        return html.escape(line)
 
     def format_stderr(self, line):
-        return line
+        return html.escape(line)
 
 
 if __name__ == '__main__':

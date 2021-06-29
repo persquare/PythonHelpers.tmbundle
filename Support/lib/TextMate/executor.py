@@ -74,5 +74,5 @@ sys.exit(0)
 
     e = MyExecutor()
     cmd = ['python3', '-c', code]
-    status = e.run()
+    status = e.run(cmd)
     print(status)
